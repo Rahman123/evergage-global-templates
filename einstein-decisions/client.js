@@ -12,7 +12,7 @@
     function apply(context, template) {
         if (!context.contentZone || !context.imageUrl || !context.url) return;
 
-        const contentZoneSelector = Evergage.getContentZoneSelector(context.contentZone);
+        const contentZoneSelector = Salesforce.getContentZoneSelector(context.contentZone);
 
         /**
          * The pageElementLoaded method waits for the content zone to load into the DOM
@@ -24,28 +24,28 @@
          * Visit the Template Display Utilities documentation to learn more:
          * https://developer.evergage.com/campaign-development/web-templates/web-display-utilities
          */
-        return Evergage.DisplayUtils
+        return Salesforce.DisplayUtils
             .bind(buildBindId(context))
             .pageElementLoaded(contentZoneSelector)
             .then((element) => {
                 const html = template(context);
-                Evergage.cashDom(element).html(html);
+                Salesforce.cashDom(element).html(html);
             });
     }
 
     function reset(context, template) {
-        Evergage.DisplayUtils.unbind(buildBindId(context));
-        Evergage.cashDom(`[data-evg-campaign-id="${context.campaign}"][data-evg-experience-id="${context.experience}"]`)
+        Salesforce.DisplayUtils.unbind(buildBindId(context));
+        Salesforce.cashDom(`[data-evg-campaign-id="${context.campaign}"][data-evg-experience-id="${context.experience}"]`)
             .remove();
     }
 
     function control(context) {
-        const contentZoneSelector = Evergage.getContentZoneSelector(context.contentZone);
-        return Evergage.DisplayUtils
+        const contentZoneSelector = Salesforce.getContentZoneSelector(context.contentZone);
+        return Salesforce.DisplayUtils
             .bind(buildBindId(context))
             .pageElementLoaded(contentZoneSelector)
             .then((element) => {
-                Evergage.cashDom(element).attr({
+                Salesforce.cashDom(element).attr({
                     "data-evg-campaign-id": context.campaign,
                     "data-evg-experience-id": context.experience,
                     "data-evg-user-group": context.userGroup

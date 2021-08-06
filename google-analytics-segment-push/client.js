@@ -33,7 +33,7 @@
         if (window.ga && typeof window.ga === "function") {
             setGaDimension(context);
             sendGaDimensions(context);
-            Evergage.sendStat({
+            Salesforce.sendStat({
                 campaignStats: [
                     {
                         control: false,

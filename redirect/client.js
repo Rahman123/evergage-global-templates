@@ -16,9 +16,9 @@
         }
 
         return new Promise((resolve, reject) => {
-            Evergage.cashDom("body").css("visibility", "hidden");
+            Salesforce.cashDom("body").css("visibility", "hidden");
 
-            Evergage.sendStat({
+            Salesforce.sendStat({
                 campaignStats: [
                     {
                         control: false,

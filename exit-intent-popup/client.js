@@ -22,8 +22,8 @@
             #evg-exit-intent-popup .evg-btn-dismissal
         `;
 
-        Evergage.cashDom(dismissSelectors).on("click", () => {
-            Evergage.cashDom("#evg-exit-intent-popup").remove();
+        Salesforce.cashDom(dismissSelectors).on("click", () => {
+            Salesforce.cashDom("#evg-exit-intent-popup").remove();
         });
     }
 
@@ -37,25 +37,25 @@
          * Visit the Template Display Utilities documentation to learn more:
          * https://developer.evergage.com/campaign-development/web-templates/web-display-utilities
          */
-        return Evergage.DisplayUtils
+        return Salesforce.DisplayUtils
             .bind(buildBindId(context))
             .pageExit(pageExitMillis)
             .then(() => {
-                if (Evergage.cashDom("#evg-exit-intent-popup").length > 0) return;
+                if (Salesforce.cashDom("#evg-exit-intent-popup").length > 0) return;
 
                 const html = template(context);
-                Evergage.cashDom("body").append(html);
+                Salesforce.cashDom("body").append(html);
                 setDismissal(context);
             });
     }
 
     function reset(context, template) {
-        Evergage.DisplayUtils.unbind(buildBindId(context));
-        Evergage.cashDom("#evg-exit-intent-popup").remove();
+        Salesforce.DisplayUtils.unbind(buildBindId(context));
+        Salesforce.cashDom("#evg-exit-intent-popup").remove();
     }
 
     function control(context) {
-        return Evergage.DisplayUtils
+        return Salesforce.DisplayUtils
             .bind(buildBindId(context))
             .pageExit(pageExitMillis)
             .then(() => {

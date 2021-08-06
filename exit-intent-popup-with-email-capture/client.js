@@ -18,17 +18,17 @@
      * an event to Interaction Studio to set the emailAddress attribute to the user email address.
      */
     function setConfirmationPanel() {
-        Evergage.cashDom("#evg-exit-intent-popup-email-capture .evg-cta").on("click", () => {
-            const emailAddress = Evergage.cashDom(".evg-form input[placeholder='Email']").val();
+        Salesforce.cashDom("#evg-exit-intent-popup-email-capture .evg-cta").on("click", () => {
+            const emailAddress = Salesforce.cashDom(".evg-form input[placeholder='Email']").val();
             const regex = RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]+)$/);
             if (emailAddress && regex.test(emailAddress)) {
-                Evergage.cashDom("#evg-exit-intent-popup-email-capture .evg-main-panel").addClass("evg-hide");
-                Evergage.cashDom("#evg-exit-intent-popup-email-capture .evg-confirm-panel").removeClass("evg-hide");
-                Evergage.cashDom(`
+                Salesforce.cashDom("#evg-exit-intent-popup-email-capture .evg-main-panel").addClass("evg-hide");
+                Salesforce.cashDom("#evg-exit-intent-popup-email-capture .evg-confirm-panel").removeClass("evg-hide");
+                Salesforce.cashDom(`
                     #evg-exit-intent-popup-email-capture .evg-overlay,
                     #evg-exit-intent-popup-email-capture .evg-btn-dismissal
                 `).removeAttr("data-evg-dismissal");
-                Evergage.sendEvent({
+                Salesforce.sendEvent({
                     user: {
                         attributes: {
                             emailAddress: emailAddress
@@ -36,7 +36,7 @@
                     }
                 });
             } else {
-                Evergage.cashDom("#evg-exit-intent-popup-email-capture .evg-error-msg")
+                Salesforce.cashDom("#evg-exit-intent-popup-email-capture .evg-error-msg")
                     .removeClass("evg-hide")
                     .addClass("evg-error");
             }
@@ -56,8 +56,8 @@
             #evg-exit-intent-popup-email-capture .evg-opt-out-msg
         `;
 
-        Evergage.cashDom(dismissSelectors).on("click", () => {
-            Evergage.cashDom("#evg-exit-intent-popup-email-capture").remove();
+        Salesforce.cashDom(dismissSelectors).on("click", () => {
+            Salesforce.cashDom("#evg-exit-intent-popup-email-capture").remove();
         });
     }
 
@@ -71,26 +71,26 @@
          * Visit the Template Display Utilities documentation to learn more:
          * https://developer.evergage.com/campaign-development/web-templates/web-display-utilities
          */
-        return Evergage.DisplayUtils
+        return Salesforce.DisplayUtils
             .bind(buildBindId(context))
             .pageExit(pageExitMillis)
             .then(() => {
-                if (Evergage.cashDom("#evg-exit-intent-popup").length > 0) return;
+                if (Salesforce.cashDom("#evg-exit-intent-popup").length > 0) return;
 
                 const html = template(context);
-                Evergage.cashDom("body").append(html);
+                Salesforce.cashDom("body").append(html);
                 setConfirmationPanel();
                 setDismissal(context);
             });
     }
 
     function reset(context, template) {
-        Evergage.DisplayUtils.unbind(buildBindId(context));
-        Evergage.cashDom("#evg-exit-intent-popup-email-capture").remove();
+        Salesforce.DisplayUtils.unbind(buildBindId(context));
+        Salesforce.cashDom("#evg-exit-intent-popup-email-capture").remove();
     }
 
     function control(context) {
-        return Evergage.DisplayUtils
+        return Salesforce.DisplayUtils
             .bind(buildBindId(context))
             .pageExit(pageExitMillis)
             .then(() => {
